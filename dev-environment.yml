@@ -1,0 +1,28 @@
+name: clear_cut_ML
+
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.12
+
+  # Classic python libraries and ML
+  - numpy
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - rasterio
+  - rioxarray
+  - geopandas
+  - shapely
+  - xarray
+  - dask
+  - pystac-client
+  - planetary-computer
+  - geoutils
+  - xdem
+  - joblib
+
+
+
+  

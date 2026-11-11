@@ -1,0 +1,6 @@
+*.tif
+*.gpkg
+*.joblib
+__pycache__
+outputs/*
+notebooks/*
