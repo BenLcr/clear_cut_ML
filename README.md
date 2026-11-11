@@ -85,3 +85,25 @@ Sentinel2 images (before / after)
                          v
               Trained model and results
 ```
+
+## Usage
+
+Run the commands in this order:
+
+```
+conda activate clear_cut_ML
+python scripts/download_sentinel.py
+python scripts/download_hansen.py
+python scripts/create_dataset.py
+python scripts/train_model.py
+```
+
+For the moment, the scripts take no command line arguments, the parameters are variables at the top of each script or in `scripts/function.py` file.
+
+Main outputs in `outputs/results/`:
+
+| File | Content |
+|---|---|
+| `detections_{MODEL}.gpkg` | detected clear-cuts as polygons |
+| `{MODEL}.joblib` | trained model |
+| `dataset_{MODEL}.npz` | saved dataset |
