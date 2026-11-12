@@ -78,8 +78,13 @@ y_val = label.ravel()[val_idx].astype("float32")
 
 # CNN
 model = keras.models.Sequential()
+model.add(keras.layers.Input(shape=(patch_size, patch_size, len(feats))))
 model.add(keras.layers.Conv2D(32, (3, 3), activation="relu", padding="same"))
+model.add(keras.layers.BatchNormalization())
+model.add(keras.layers.Conv2D(64, (3, 3), activation="relu", padding="same"))
+model.add(keras.layers.BatchNormalization())
 model.add(keras.layers.Flatten())
+model.add(keras.layers.Dropout(0.3))
 model.add(keras.layers.Dense(64, activation="relu"))
 model.add(keras.layers.Dense(1, activation="sigmoid")) # 0 = no cut, 1 = cut
 
@@ -87,13 +92,16 @@ model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy",
 
 model.summary()
 
+early_stop = keras.callbacks.EarlyStopping(monitor="val_loss", patience=5, restore_best_weights=True)
+
 history = model.fit(
     x=X_train_patches,
     y=y_train,
     verbose=1,
-    epochs=15,
+    epochs=30,
     batch_size=256,
-    validation_data=(X_val_patches, y_val)
+    validation_data=(X_val_patches, y_val),
+    callbacks=[early_stop]
 )
 
 # HISTORY
