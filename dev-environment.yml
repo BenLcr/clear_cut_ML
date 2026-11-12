@@ -22,6 +22,7 @@ dependencies:
   - geoutils
   - xdem
   - joblib
+  - tensorflow
 
 
 
