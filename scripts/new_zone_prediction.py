@@ -12,19 +12,18 @@ from functions import bands, build_features, contours, dst_crs, out_dir, res, FO
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", default="cnn", choices=["rf", "cnn", "unet"], help="model to use (default: cnn)")
+parser.add_argument("--bands-dir", type=Path, default=Path("outputs/new_sentinel"), help="folder of the .tif bands of the new zone")
+parser.add_argument("--scene-before", default="S2B_MSIL2A_20170823T103019_R108_T31UGP_20210201T081140", help="name of the scene of the first date, without the band suffix")
+parser.add_argument("--scene-after", default="S2A_MSIL2A_20230810T103631_R008_T32ULU_20241022T015940", help="name of the scene of the second date, without the band suffix")
 args = parser.parse_args()
 
 # Settings
 model_name = args.model
 model_dir = Path("outputs/results")
 
-new_bands_dir = Path("outputs/new_sentinel")
-new_scenes = {
-    2017: "S2B_MSIL2A_20170823T103019_R108_T31UGP_20210201T081140",
-    2023: "S2A_MSIL2A_20230810T103631_R008_T32ULU_20241022T015940",
-}
+new_bands_dir = args.bands_dir
+new_scenes = {2017: args.scene_before, 2023: args.scene_after}
 new_offset = {2017: 0, 2023: 1000}
-bbox = None
 
 functions.scenes, functions.offset, functions.bands_dir = new_scenes, new_offset, new_bands_dir
 

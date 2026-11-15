@@ -1,10 +1,19 @@
 import os
+import argparse
 import planetary_computer
 import pystac_client
 import rioxarray
-from functions import out_sentinel, dates, bbox, bands
+from functions import out_sentinel, dates, bands
+from pathlib import Path
 
-out_dir = out_sentinel
+parser = argparse.ArgumentParser()
+parser.add_argument("--bbox", type=float, nargs=4, default=[6.65, 47.85, 6.95, 48.10], help="Bounding box of the wanted area (LON LAT °)")
+parser.add_argument("--out_dir", type=Path, default=out_sentinel, help="Ouput of the download")
+args = parser.parse_args()
+
+bbox = args.bbox
+out_dir = args.out_dir
+out_dir.mkdir(parents=True, exist_ok=True)
 
 # connect to the Sentinel-2 L2A catalog
 catalog = pystac_client.Client.open(
