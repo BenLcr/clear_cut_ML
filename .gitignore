@@ -1,6 +1,8 @@
-*.tif
-*.gpkg
-*.joblib
 __pycache__
 outputs/*
+!outputs/hansen_contours.gpkg
+!outputs/results/
+outputs/results/*
+!outputs/results/detections_cnn.gpkg
 notebooks/*
+!notebooks/Comparison.ipynb
