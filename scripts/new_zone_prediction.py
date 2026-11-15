@@ -1,4 +1,5 @@
 import joblib
+import argparse
 import numpy as np
 import rasterio
 from pathlib import Path
@@ -9,8 +10,12 @@ from tensorflow import keras
 import functions
 from functions import bands, build_features, contours, dst_crs, out_dir, res, FOREST_NDVI_MIN, MIN_PIXELS, batch_size_pred
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--model", default="cnn", choices=["rf", "cnn", "unet"], help="model to use (default: cnn)")
+args = parser.parse_args()
+
 # Settings
-model_name = "cnn"
+model_name = args.model
 model_dir = Path("outputs/results")
 
 new_bands_dir = Path("outputs/new_sentinel")
