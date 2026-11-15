@@ -6,11 +6,7 @@ from rasterio.features import rasterize
 import tensorflow as tf
 from tensorflow import keras
 
-from functions import dataset_file, build_features, catalog_file, outlines_dir, contours, dst_crs, make_grid, out_dir, res, scores, seed
-
-NEG_RATIO = 5
-FOREST_NDVI_MIN = 0.6
-MIN_PIXELS = 5
+from functions import dataset_file, build_features, catalog_file, outlines_dir, contours, dst_crs, make_grid, out_dir, res, scores, seed, NEG_RATIO, FOREST_NDVI_MIN, MIN_PIXELS
 
 rng = np.random.default_rng(seed)
 
@@ -201,8 +197,7 @@ print("UNET | threshold", round(best_threshold, 2),
 
 # SAVE MODEL
 model.save(str(out_dir / "unet.keras"))
-np.savez(out_dir / "unet.npz", mean=mean, std=std, feats=np.array(feats), threshold=best_threshold, patch_size=patch_size)
-np.savez(out_dir / "unet.npz", **history.history)
+np.savez(out_dir / "unet.npz", mean=mean, std=std, feats=np.array(feats), threshold=best_threshold, patch_size=patch_size, **{f"history_{k}": v for k, v in history.history.items()})
 print("model saved in", out_dir / "unet.keras")
 
 # OUTLINE DETECTION

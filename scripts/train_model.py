@@ -5,12 +5,9 @@ import rasterio
 from rasterio.features import rasterize
 from sklearn.ensemble import RandomForestClassifier
 
-from functions import dataset_file, build_features, catalog_file, outlines_dir, contours, dst_crs, make_grid, out_dir, res, scores, seed
+from functions import dataset_file, build_features, catalog_file, outlines_dir, contours, dst_crs, make_grid, out_dir, res, scores, seed, FOREST_NDVI_MIN, MIN_PIXELS, NEG_RATIO
 
 # PARAMETERS
-FOREST_NDVI_MIN = 0.6 # a pixel is forest if its NDVI in 2017 is above this
-NEG_RATIO = 5         # number of not-cut pixels per cut pixel in the training set
-MIN_PIXELS = 25       # smallest detection kept when drawing the contours
 rng = np.random.default_rng(seed)
 
 cat = gpd.read_file(catalog_file).to_crs(dst_crs)

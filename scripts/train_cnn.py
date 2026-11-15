@@ -6,11 +6,7 @@ from rasterio.features import rasterize
 import tensorflow as tf
 from tensorflow import keras
 
-from functions import dataset_file, build_features, catalog_file, outlines_dir, contours, dst_crs, make_grid, out_dir, res, scores, seed
-
-NEG_RATIO = 5
-FOREST_NDVI_MIN = 0.6
-MIN_PIXELS = 5
+from functions import dataset_file, build_features, catalog_file, outlines_dir, contours, dst_crs, make_grid, out_dir, res, scores, seed, batch_size_pred, FOREST_NDVI_MIN, MIN_PIXELS, NEG_RATIO
 
 rng = np.random.default_rng(seed)
 
@@ -118,7 +114,6 @@ mask_idx = np.flatnonzero(mask)
 proba = np.full((H, W), np.nan, dtype="float32")
 
 # BATCH PREDICTION
-batch_size_pred = 65536
 preds_list = []
 
 for i in range(0, len(mask_idx), batch_size_pred):

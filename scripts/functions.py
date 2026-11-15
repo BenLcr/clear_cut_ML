@@ -43,6 +43,12 @@ scenes = {
 
 offset = {2017: 0, 2023: 1000}   # processing baseline >= 04.00 adds 1000 to the values
 
+FOREST_NDVI_MIN = 0.6
+MIN_PIXELS = 5
+NEG_RATIO = 5
+
+batch_size_pred = 65536
+
 # FUNCTIONS 
 
 def make_grid(cat, margin=500):
